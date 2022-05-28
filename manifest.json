@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "lista de tareas",
+    "author": "Jefferson Silva dos Anjos",
+    "version": "0.0.1",
+    "description": "plugin destinado a lista de tareas",
+    "action":{
+      "default_popup": "src/todoList.html"
+  },
+  "permissions":[
+    "tabs"
+  ],
+  
+  "host_permissions":[
+    "<all_urls>"
+  ]
+      
+  }
