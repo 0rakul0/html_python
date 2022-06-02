@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <py-env>
+            - numpy
+            - matplotlib
+            - paths:
+              - ../data/extrator.py
+          </py-env>
+    </head>
+    <body>
+        
+        <h1>Jogo de Dados</h1>
+
+        <div id="nome_1"></div>
+        <hr>
+        <div id="nome_2"></div>
+        <hr>    
+        <div id="nome_3"></div>
+        
+         <py-script>
+        from extrator import *
+        nome = Extrator('Jefferson')
+        sobrenome = Extrator('Silva')
+        ult_nome = Extrator('dos Anjos')
+        pyscript.write('nome_1', nome.get_name())
+        pyscript.write('nome_2', sobrenome.get_name())
+        pyscript.write('nome_3', ult_nome.get_name())
+        </py-script>
+    </body>
+</html>
