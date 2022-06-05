@@ -7,10 +7,6 @@
         <link href="css/style.css" rel="stylesheet">
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel=stylesheet>
-        <py-env>
-        - paths:
-          - ./py/utilit.py
-      </py-env>
     </head>
     <body>
         <!-- codigo -->
@@ -24,30 +20,27 @@ tasks = []
 def cria_task(*ags, **kags):
     input_task = Element('input_task')
     task = input_task.element.value
-
 # verifica se o campo é igual a algum já digitado
     y = list(filter(lambda x: x['task'] == task, tasks))
     if len(y) > 0:
         message = Element('a_tarefa_ja_existe')
         message.element.style.display = 'flex'
         return None
-
     dict_taks = { "task_id": uuid.uuid4(), "task": task, "status": "Craida", "data_criacao": datetime.now() }
-    
     tasks.append(dict_taks)
     # limpa o input do html
     input_task.element.value = ""
     cria_task_list()
 
-
-def cria_task_list():
 # renderiza a lista de tarefas na div <div id="tasks_criadas">
+def cria_task_list():
     tasks_criadas = Element('tasks_criadas')
     tasks_criadas.element.innerHTML = ""
     for i in tasks:
-        tasks_criadas.element.innerHTML += f"{i['task']}\n"
-        tasks_criadas.element.innerHTML += f"{i['status']}"
-
+        task_list = Element('task_list')
+        task_list.element.innerHTML = i['task']
+        tasks_criadas.element.appendChild(task_list.element)
+        
         </py-script>
         <!-- base -->
         <main>

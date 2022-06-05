@@ -7,31 +7,57 @@
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <link rel="stylesheet" href="./css/style.css">
+
         <py-env>
-            - numpy
             - matplotlib
             - paths:
               - ./py/extrator.py
-          </py-env>
+        </py-env>
     </head>
     <body>
         
         <h1>Jogo de Dados</h1>
 
-        <div id="nome_1"></div>
+        <form onsubmit="return false">
+        <label for="nome">Nome: </label>
+        <input type="text" name="" id="input_name" placeholder="digite seu nome">
+        <button id="btn_form_btn" pys-onClick="btn_form">Iniciar</button>            
+        </form>
+
+        <div class="container">
+
+
         <hr>
-        <div id="nome_2"></div>
-        <hr>    
-        <div id="nome_3"></div>
-        
+        <div id="nome" class="nome"></div>
+        <hr>
+        <div id="sobrenome" class="nome"></div>
+        <hr>
+        <div id="ultimo_nome" class="nome"></div>
+            <div>
+                <p>Quantidade de letras: <span id="qte_letras"></span></p>
+                <p>Quantidade de palavras: <span id="qte_palavras"></span></p>
+            </div>
+        <div id="grafico" class="grafico">
+            
+        </div>
+        </div>
          <py-script>
-        from extrator import *
-        nome = Extrator('Jefferson')
-        sobrenome = Extrator('Silva')
-        ult_nome = Extrator('dos Anjos')
-        pyscript.write('nome_1', nome.get_name())
-        pyscript.write('nome_2', sobrenome.get_name())
-        pyscript.write('nome_3', ult_nome.get_name())
+        from extrator import Extrator
+
+        extrator = Extrator()
+
+        def btn_form(*ags, **kags):
+            input_nome = Element('input_name')
+            nome = input_nome.value
+
+            pyscript.write('nome', extrator.get_name(nome)[0])
+            pyscript.write('sobrenome', extrator.get_name(nome)[1])
+            pyscript.write('ultimo_nome', extrator.get_name(nome)[-1])
+            pyscript.write('qte_letras', extrator.set_legther(nome)[0])
+            pyscript.write('qte_palavras', extrator.set_legther(nome)[1])
+
+
         </py-script>
     </body>
 </html>
