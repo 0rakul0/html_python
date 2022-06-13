@@ -11,6 +11,7 @@
 
         <py-env>
             - matplotlib
+            - pandas
             - paths:
               - ./py/extrator.py
         </py-env>
@@ -27,7 +28,6 @@
 
         <div class="container">
 
-
         <hr>
         <div id="nome" class="nome"></div>
         <hr>
@@ -38,25 +38,56 @@
                 <p>Quantidade de letras: <span id="qte_letras"></span></p>
                 <p>Quantidade de palavras: <span id="qte_palavras"></span></p>
             </div>
+        <hr>
+        
+        <div>
+            <form onsubmit="return false">
+                <textarea type="text" id="texto" placeholder="texto 1"></textarea>
+                <textarea type="text" id="palavras" placeholder="palavras para encontrar"></textarea>
+                <button id="btn_contar" pys-onClick="comparador">comparador</button>    
+            </form>
+            <span id="palavra_citada"></span>
+        </div>
+
+        <button id="btn_btn" pys-onClick="btn_grafico">grafico</button>
         <div id="grafico" class="grafico">
             
         </div>
         </div>
          <py-script>
         from extrator import Extrator
+        import pandas as pd
 
         extrator = Extrator()
 
-        def btn_form(*ags, **kags):
+        def btn_form(input_name):
             input_nome = Element('input_name')
             nome = input_nome.value
-
             pyscript.write('nome', extrator.get_name(nome)[0])
             pyscript.write('sobrenome', extrator.get_name(nome)[1])
             pyscript.write('ultimo_nome', extrator.get_name(nome)[-1])
             pyscript.write('qte_letras', extrator.set_legther(nome)[0])
             pyscript.write('qte_palavras', extrator.set_legther(nome)[1])
+        
+        def comparador(texto):
+            texto = Element('texto')
+            palavras = Element('palavras')
 
+            texto = texto.value
+            palavras = palavras.value
+            palavra = palavras.split(' ') 
+            for i in palavras:
+                palavra.append(i)
+            
+            d = extrator.popularidade(texto.split(), palavra)
+            df = pd.DataFrame([d]).transpose()
+            pyscript.write('palavra_citada', df)
+  
+
+        def btn_grafico(input_name):
+            input_name = Element('input_name')
+            grafico = input_name.value 
+            pyscript.write('grafico', extrator.grafico(grafico))
 
         </py-script>
     </body>
